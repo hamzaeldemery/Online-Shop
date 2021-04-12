@@ -1,0 +1,31 @@
+<%- include('parts/header')%>
+<%- include('parts/navbar')%> 
+
+<div class="container">
+     <h3 style="margin-top: 10px;position: relative; left: 40%;">Login to your Account</h3>
+     <%if(err){%>
+          <p style="margin-top: 10px;" class="alert alert-danger">
+               <%= err%>
+          </p>
+     <%}%>
+     <form action="/login" method="POST">
+          <input type="text" name="username" id="username" class="form-control" placeholder="Username">
+          <%let usrErr = valErr.find(err => err.param === 'username')%>
+          <%if(usrErr){%>
+               <p class="alert alert-danger"><%=usrErr.msg%></p>
+          <%}%>
+          <input type="password" name="pass" id="pass" class="form-control" placeholder="Password">
+          <%usrErr = valErr.find(err => err.param === 'pass')%>
+          <%if(usrErr){%>
+               <p class="alert alert-danger"><%=usrErr.msg%></p>
+          <%}%>
+          <input style="margin-top: 10px;position: absolute; left: 50%;" type="submit" value="login" id="Create Account" class="btn btn-primary">
+     </form>
+     <div>
+          Dont have an account? <a href="/signup">signup</a>
+     </div>
+</div>
+
+<%- include('parts/footer')%>
+          
+          

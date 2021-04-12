@@ -1,0 +1,21 @@
+<%- include('parts/header')%>
+<%- include('parts/navbar')%>
+
+<div class="container">
+     <h3>Address</h3>
+     <form action="/cart/deleteConf" method="POST" >
+          <input type="text" name="address" placeholder="Address">
+          <input type="hidden" name="itmId" value="<%=id%>">
+          <input type="submit" class="btn btn-success" placeholder="Proceed">
+     </form>
+     <%if(err){%>
+          <p class="alert alert-danger">
+               <%=err.msg%>     
+          </p>
+     <%}%>
+
+</div>
+
+
+
+<%- include('parts/footer')%>

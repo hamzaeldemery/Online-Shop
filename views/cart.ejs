@@ -1,0 +1,83 @@
+<%- include('parts/header')%>
+<%- include('parts/navbar')%>
+
+<div class="container">
+     <%if(itms.length){%>
+          <div class="container mb-4">
+               <div class="row">
+                   <div class="col-12">
+                       <div class="table-responsive">
+                           <table class="table table-striped">
+                               <thead>
+                                   <tr>
+                                       <th scope="col"> </th>
+                                       <th scope="col">Product</th>
+                                       <th scope="col">Available</th>
+                                       <th scope="col" class="text-center">Quantity</th>
+                                       <th scope="col" class="text-right">Price</th>
+                                       <th> </th>
+                                   </tr>
+                               </thead>
+                               <tbody>
+                                   <%for(let itm of itms){%>
+                                        <tr>
+                                            <td><img src="<%=itm.image%>" /> </td>
+                                            <td><a href="/products/<%=itm.productId%>"><%=itm.name%></a></td>
+                                            <td>In stock</td>
+                                            <form method="POST">
+                                                  <td><input type="text" name="amount" value="<%=itm.amount%>"></td>
+                                                  <%let tot = itm.amount * itm.price%>
+                                                  <td class="text-right">RM<%=tot%></td>
+                                                  <td>
+                                                       <input type="hidden" name="itmId" value="<%=itm._id%>">
+                                                       <input type="submit" class="btn btn-success" value="Save"   formaction="/cart/save">
+                                                  </td>
+                                                  <td>
+                                                       <input type="submit" class="btn btn-success" value="Order" formaction="/cart/orderConfirm">
+                                                  </td>
+                                                  <td>
+                                                       <input type="submit" class="btn btn-danger" value="Delete" formaction="/cart/delete">
+                                                  </td>
+                                             </form>
+                                        </tr>
+                                        <tr>
+                                             <td>
+                                             <%if(cartErr && (cartId === (itm._id).toString())){%>
+                                                  <p class="alert alert-danger"><%=cartErr.msg%></p>
+                                             <%}%>
+                                             </td>
+                                        </tr>
+                                   <%}%>
+                                        
+                                             
+                                        </tbody>
+                                   </table>
+                       </div>
+                   </div>
+                   <div class="col mb-2">
+                         <div class="row">
+                              <div class="col-sm-12  col-md-6">
+                                   <a href="/">Continue shopping</a>
+                              </div>
+                         </div>
+                         <div class="row">
+                              <form method="POST">
+                                   <div class="col-sm-12 col-md-6 text-right">
+                                       <input type = "submit" class = "btn btn-lg btn-block btn-success text-uppercase" formaction="/cart/orderAll" value="Order All">
+                                       <input type = "submit" class = "btn btn-lg btn-block btn-danger text-uppercase" formaction="/cart/deleteAll" value="delete all">
+                                   </div>
+                              </form>
+                         </div>
+                   </div>
+               </div>
+          </div>
+     <%}else{%>
+          <h3>Cart is empty</h3>
+     <%}%>
+</div>
+
+
+
+<%- include('parts/footer')%>
+          
+          

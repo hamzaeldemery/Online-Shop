@@ -1,0 +1,44 @@
+<%- include('parts/header')%>
+<%- include('parts/navbar')%>
+
+<div class="container">
+     
+     <%if(!product){%>
+          <div class="alert alert-danger">
+               There is no such product.
+          </div>
+     <%}else{%>
+          <div class="row">
+               <div class="col col-12 col-md-6">
+                    <img src="/<%=product.image%>" alt="<%=product.name%>" class="prodImg">
+                    <%if(!admin && user){%>
+                    <form action="/cart" method="POST">
+                         <div class="container-auto" >
+                           <input type="number" name="amount" class = "form-control">
+                           <input type="hidden" name="name"  value = "<%=product.name%>" >
+                           <input type="hidden" name="image"  value = "<%=product.image%>" >
+                           <input type="hidden" name="price" value = "<%=product.price%>">
+                           <input type="hidden" name="productId" value = "<%=product._id%>">
+                           <input type="hidden" name="path" value = "/products/<%=product._id%>">
+                           <%if(cartErr){%>
+                           <p class="alert alert-danger"><%=cartErr.msg%></p>
+                           <%}%>
+                           <input type="submit" value="Add to cart" class="btn btn-primary">
+                         </div>
+                    </form>
+                    <%}%>
+               </div>
+               <div class="col col-12 col-md-6">
+                    <h3><%= product.name%></h1>
+                    <h5>Price: RM<%= product.price%></h3>
+                    <p><%=product.description%></p>
+               </div>
+          </div>
+     <%}%>
+</div>
+
+
+
+<%- include('parts/footer')%>
+          
+          

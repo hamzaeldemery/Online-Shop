@@ -1,0 +1,16 @@
+<%- include('parts/header')%>
+<%- include('parts/navbar')%>
+
+<div class="container">
+     <form action="/admin/add" method="POST" enctype="multipart/form-data">
+          <input class="form-control" type="text" name="name" placeholder="Name"><br>
+          <input class="form-control" type="file" name="image" placeholder= "Image" accept="image/*"><br>
+          <input class="form-control" type="text" name="price" placeholder= "Price"><br>
+          <input class="form-control" type="text" name="description" placeholder= "Description"><br>
+          <input class="form-control" type="text" name="category" placeholder= "Category"><br>
+          <input type="submit" value="Add" class="btn btn-success">
+     </form>
+</div>
+
+
+<%- include('parts/footer')%>

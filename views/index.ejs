@@ -1,0 +1,61 @@
+<%- include('parts/header')%>
+<%- include('parts/navbar')%> 
+
+<div class="container">
+  <form action="/" method="GET">
+    <select name="category" class="form-control">
+      <%if(selc === 'all'){%><option value="all"  selected = "selected">All</option><%}%>
+      <%if(selc !== 'all'){%><option value="all" >All</option><%}%>
+      <% for(let i = 0; i < (category.length) ; ++i){%>
+        <%let selected = selc === category[i]?"selected":""%>
+        <%if(selc === category[i]){%><option value=<%=category[i]%> selected = "selected"><%= category[i]%></option><%}%>
+        <%if(selc !== category[i]){%><option value=<%=category[i]%> ><%= category[i]%></option><%}%>
+          
+      <%}%>
+    </select>
+    <input type="submit" value="Filter" class="btn btn-primary" >
+  </form>
+  <%if(products.length === 0){%>
+    <div class="alert alert-danger">
+      Theres no products.
+    </div>
+  <%}else{%>
+    <div class="row">
+      <%for(let product of products){%>
+        <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
+          <div class="card" style="width: 18rem; margin-top: 40px;">
+            <img src="<%=product.image%>" class="card-img-top" alt="<%=product.name%>">
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="/products/<%=product._id%>"><%=product.name%></a>
+                <p>Price: RM<%=product.price%></p>
+              </h5>
+              <%if(!admin && user){%>
+              <form action="/cart" method="POST">
+                <div class="container-auto">
+                  <input type="number" name="amount" class = "form-control">
+                  <input type="hidden" name="name"  value = "<%=product.name%>" >
+                  <input type="hidden" name="image"  value = "<%=product.image%>" >
+                  <input type="hidden" name="price" value = "<%=product.price%>">
+                  <input type="hidden" name="productId" value = "<%=product._id%>">
+                  <input type="hidden" name="path" value = "/">
+                  <%if(cartErr ){%>
+                    <% if(cartErrProd === product.name){%>
+                    <p class="alert alert-danger"><%=cartErr.msg%></p>
+                    <%}%>
+                  <%}%>
+                  <input type="submit" value="Add to cart" class="btn btn-primary">
+                </div>
+              </form>
+              <%}%>
+            </div>
+          </div>
+        </div>
+      <%}%>
+    </div>
+  <%}%>
+</div>
+
+<%- include('parts/footer')%>
+          
+          
