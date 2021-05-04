@@ -46,6 +46,15 @@ app.use('/cart',cartRouter)
 app.use('/orders',cartOrders)
 app.use('/admin',adminRouter)
 
+app.use((req,res,next) => {
+     res.status(404);
+     res.render("not-found",{
+          user: req.session.userId,
+          admin: req.session.isAdmin,
+          pageName: "Page not found"
+     })
+})
+
 app.listen(3000,(err) => {
      console.log(err)
      console.log('Server listening on 3000')

@@ -2,12 +2,12 @@
 <%- include('parts/navbar')%>
 
 <div class="container">
-     <form action="/admin/orders" method="POST" name="stat">
+     <form method="POST" name="stat">
           <div class="table-responsive table table-striped mb-4">
-               <td><input type="submit" class = "btn btn-primary" value="All"      ></td>
-               <td><input type="submit" class = "btn btn-primary" value="Pending"  ></td>
-               <td><input type="submit" class = "btn btn-primary" value="Shipped"  ></td>
-               <td><input type="submit" class = "btn btn-primary" value="Delivered"></td>
+               <td><input type="submit" class = "btn btn-primary" value="All"      formaction = "/admin/orders/?status=All"></td>
+               <td><input type="submit" class = "btn btn-primary" value="Pending"  formaction = "/admin/orders/?status=Pending"></td>
+               <td><input type="submit" class = "btn btn-primary" value="Shipped"  formaction = "/admin/orders/?status=Shipped"></td>
+               <td><input type="submit" class = "btn btn-primary" value="Delivered"formaction = "/admin/orders/?status=Delivered"></td>
           </div>
      </form>
 

@@ -1,4 +1,4 @@
-
+let url = require('url')
 const { validationResult } = require('express-validator')
 const orderModels = require('../models/orders.model')
 const productModels = require('../models/products.model')
@@ -52,16 +52,17 @@ exports.saveOrder = (req,res,next) => {
 // Manage orders 
 
 exports.getOrders = (req,res,next) => {
-
-     let stat = req.query;
-     console.log(stat)
-     stats = ['Pending', ' Shipped', 'Delivered']
-     if(stat && stats.includes(stat)){
-          orderModels.filterStat(stat).then((orders) => {
+     let url_parts = url.parse(req.url,true,);
+     let stat = url_parts.query;
+     console.log(stat.status)
+     stats = ['Pending', 'Shipped', 'Delivered']
+     if(stat && stats.includes(stat.status)){
+          orderModels.filterStat(stat.status).then((orders) => {
+               console.log(orders)
                res.render('manageOrders',{ 
                     admin: req.session.isAdmin,
                     user: req.session.userId,
-                    pageName:'Manage Orders',
+                    pageName:'Manage Orders', 
                     orders: orders
                })
           })
